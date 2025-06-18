@@ -1,0 +1,41 @@
+
+---
+
+### ✅ **.gitignore**
+
+Add a `.gitignore` to exclude unnecessary files:
+
+```gitignore
+# .NET build artifacts
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# VS Code settings
+.vscode/
+
+# Rider settings
+.idea/
+
+# User-specific files
+*.swp
+*.log
+*.tmp
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# EF Core migrations folders (optional)
+# Migrations/
+
+# Secrets
+appsettings.Development.json
+secrets.json
+
+# Others
+*.db-shm
+*.db-wal
