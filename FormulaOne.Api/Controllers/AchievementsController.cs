@@ -3,6 +3,7 @@ using FormulaOne.DataService.Repositories.Interfaces;
 using FormulaOne.Entities.DbSet;
 using FormulaOne.Entities.Dtos.Requests;
 using FormulaOne.Entities.Dtos.Responese;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FormulaOne.Api.Controllers;
@@ -10,7 +11,7 @@ namespace FormulaOne.Api.Controllers;
 
 public class AchievementsController : BaseController
 {
-    public AchievementsController(IMapper mapper, IUnitOfWork unitOfWork) : base(mapper, unitOfWork)
+    public AchievementsController(IMapper mapper, IUnitOfWork unitOfWork, IMediator mediator) : base(mapper, unitOfWork, mediator)
     {
     }
 
@@ -28,19 +29,19 @@ public class AchievementsController : BaseController
         return Ok(resullt);
     }
 
-  [HttpPost("")]
-public async Task<IActionResult> AddAchievements([FromBody] CreateDriverAchievementsRequest achievements)
-{
-    if (!ModelState.IsValid)
-        return BadRequest();
+    [HttpPost("")]
+    public async Task<IActionResult> AddAchievements([FromBody] CreateDriverAchievementsRequest achievements)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest();
 
-    var result = _mapper.Map<Achievements>(achievements);
+        var result = _mapper.Map<Achievements>(achievements);
 
-    await _unitOfWork.Achievements.Add(result);
-    await _unitOfWork.CompleteAsync();
+        await _unitOfWork.Achievements.Add(result);
+        await _unitOfWork.CompleteAsync();
 
-    return CreatedAtAction(nameof(GetDriverAchievements), new { driverId = result.DriverId }, result);
-}
+        return CreatedAtAction(nameof(GetDriverAchievements), new { driverId = result.DriverId }, result);
+    }
 
 
     [HttpPut("")]

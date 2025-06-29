@@ -28,6 +28,7 @@ public class RequestToDomain : Profile
 
 
         CreateMap<UpdateDriverRequest, Driver>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.DriverId))
             .ForMember(dest => dest.UpdatedDate, opt => opt.MapFrom(src => DateTime.UtcNow));
     }
 

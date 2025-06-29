@@ -17,6 +17,14 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite(connect
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+/*
+Registers/Injects MediatR services and discovers handlers (e.g., IRequestHandler, INotificationHandler) in the dependency injection container.
+
+Automatically wires up MediatR components for handling CQRS patterns (Commands, Queries, Events) in ASP.NET Core.
+*/
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(Program).Assembly));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
